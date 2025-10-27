@@ -1,0 +1,126 @@
+{
+  parserClass="lang.dragonbook.dragonbooklangsupport.language.psi.parser.DragonBookParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="DragonBook"
+  psiImplClassSuffix="Impl"
+  psiPackage="lang.dragonbook.dragonbooklangsupport.language.psi"
+  psiImplPackage="lang.dragonbook.dragonbooklangsupport.language.psi.impl"
+
+  elementTypeHolderClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookTypes"
+  elementTypeClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookElementType"
+  tokenTypeClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookTokenType"
+
+  extends(".*Expr")=expression
+
+  tokens=[
+    // Fake tokens to generate parser types
+    COMMENT = 'comment'
+  ]
+}
+
+program ::= function+
+
+function ::= annotations? FUN ID LPAR functionParameters? RPAR (ARROW type)? block
+
+annotations ::= HASH LBRACKET annotationList? RBRACKET
+
+annotationList ::= ID (COMMA ID)*
+
+functionParameters ::= functionParameter (COMMA functionParameter)*
+
+functionParameter ::= type ID
+
+statement ::= declaration end
+            | assignment end
+            | functionCall end
+            | breakStatement
+            | continueStatement
+            | returnStatement
+            | ifStatement
+            | whileStatement
+            | doWhileStatement
+            | forStatement
+            | block
+
+functionCall ::= ID LPAR callArguments? RPAR
+
+callArguments ::= expression (COMMA expression)*
+
+block ::= LBRACE statement* RBRACE
+
+declaration ::= type ID (ASSIGN expression)?
+
+type ::= ID (STAR)*
+
+assignment ::= lvalue assignOp expression
+
+assignOp ::= ASSIGN | PLUS_ASSIGN | MINUS_ASSIGN | STAR_ASSIGN | DIV_ASSIGN | MOD_ASSIGN
+
+lvalue ::= idLValue | derefLValue
+
+idLValue ::= ID
+
+derefLValue ::= STAR expression
+
+ifStatement ::= IF LPAR expression RPAR statement (ELSE statement)?
+
+whileStatement ::= WHILE LPAR expression RPAR statement
+
+doWhileStatement ::= DO statement WHILE LPAR expression RPAR end
+
+forStatement ::= FOR LPAR (declaration | assignment)? SEMICOLON expression? SEMICOLON assignment? RPAR statement
+
+breakStatement ::= BREAK end
+
+continueStatement ::= CONTINUE end
+
+returnStatement ::= RETURN expression? end
+
+expression ::= orExpr
+             | andExpr
+             | comparisonExpr
+             | addSubExpr
+             | mulDivExpr
+             | castExpr
+             | unaryExpr
+             | callExpr
+             | idExpr
+             | trueExpr
+             | falseExpr
+             | intExpr
+             | floatExpr
+             | parenExpr
+
+orExpr ::= expression OR expression
+
+andExpr ::= expression AND expression
+
+comparisonExpr ::= expression comparisonOp expression
+
+addSubExpr ::= expression (PLUS | MINUS) expression
+
+mulDivExpr ::= expression (STAR | DIV | MOD) expression
+
+castExpr ::= expression AS type
+
+unaryExpr ::= (MINUS | NOT | STAR) expression
+
+parenExpr ::= LPAR expression RPAR
+
+idExpr ::= ID
+
+trueExpr ::= TRUE
+
+falseExpr ::= FALSE
+
+intExpr ::= INT_LITERAL
+
+floatExpr ::= FLOAT_LITERAL
+
+callExpr ::= functionCall
+
+comparisonOp ::= LESS | GREATER | LESS_EQUAL | GREATER_EQUAL | EQUAL | NOT_EQUAL
+
+private end ::= SEMICOLON

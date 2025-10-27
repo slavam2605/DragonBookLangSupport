@@ -8,6 +8,14 @@ plugins {
 group = "lang.dragonbook"
 version = "1.0-SNAPSHOT"
 
+sourceSets {
+    main {
+        java {
+            srcDirs("src/main/gen")
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     intellijPlatform {

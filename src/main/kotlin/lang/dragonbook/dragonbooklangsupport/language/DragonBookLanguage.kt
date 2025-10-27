@@ -1,4 +1,4 @@
-package lang.dragonbook.dragonbooklangsupport.psi
+package lang.dragonbook.dragonbooklangsupport.language
 
 import com.intellij.lang.Language
 

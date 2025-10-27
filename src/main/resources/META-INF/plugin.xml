@@ -14,9 +14,13 @@
     <extensions defaultExtensionNs="com.intellij">
         <fileType
                 name="DragonBook File"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.psi.DragonBookFileType"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.language.DragonBookFileType"
                 fieldName="INSTANCE"
                 language="DragonBookLanguage"
                 extensions="dg"/>
+
+        <lang.parserDefinition
+                language="DragonBookLanguage"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.language.DragonBookParserDefinition"/>
     </extensions>
 </idea-plugin>
