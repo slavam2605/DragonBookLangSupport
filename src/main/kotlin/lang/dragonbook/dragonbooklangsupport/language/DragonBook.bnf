@@ -17,6 +17,7 @@
   tokens=[
     // Fake tokens to generate parser types
     COMMENT = 'comment'
+    BAD_CHARACTER = 'bad_char'
   ]
 }
 

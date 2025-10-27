@@ -22,5 +22,9 @@
         <lang.parserDefinition
                 language="DragonBookLanguage"
                 implementationClass="lang.dragonbook.dragonbooklangsupport.language.DragonBookParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory
+                language="DragonBookLanguage"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookSyntaxHighlighterFactory"/>
     </extensions>
 </idea-plugin>

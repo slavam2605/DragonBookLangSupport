@@ -52,6 +52,7 @@ public interface DragonBookTypes {
   IElementType ARROW = new DragonBookTokenType("ARROW");
   IElementType AS = new DragonBookTokenType("AS");
   IElementType ASSIGN = new DragonBookTokenType("ASSIGN");
+  IElementType BAD_CHARACTER = new DragonBookTokenType("bad_char");
   IElementType BREAK = new DragonBookTokenType("BREAK");
   IElementType COMMA = new DragonBookTokenType("COMMA");
   IElementType COMMENT = new DragonBookTokenType("comment");
