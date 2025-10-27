@@ -14,5 +14,5 @@ object DragonBookFileType : LanguageFileType(DragonBookLanguage.INSTANCE) {
 
     override fun getDefaultExtension(): @NlsSafe String = "dg"
 
-    override fun getIcon(): Icon = DragonBookIcons.Language
+    override fun getIcon(): Icon = DragonBookIcons.File
 }

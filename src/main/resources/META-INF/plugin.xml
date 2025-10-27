@@ -26,5 +26,7 @@
         <lang.syntaxHighlighterFactory
                 language="DragonBookLanguage"
                 implementationClass="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookSyntaxHighlighterFactory"/>
+        
+        <colorSettingsPage implementation="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookColorSettingsPage"/>
     </extensions>
 </idea-plugin>
