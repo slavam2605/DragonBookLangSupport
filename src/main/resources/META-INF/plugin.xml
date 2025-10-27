@@ -12,6 +12,11 @@
     </dependencies>
 
     <extensions defaultExtensionNs="com.intellij">
-
+        <fileType
+                name="DragonBook File"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.psi.DragonBookFileType"
+                fieldName="INSTANCE"
+                language="DragonBookLanguage"
+                extensions="dg"/>
     </extensions>
 </idea-plugin>

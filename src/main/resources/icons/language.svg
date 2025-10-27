@@ -1,0 +1,27 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+     xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+    <title>DragonBook file icon — large purple dragon (no background)</title>
+
+    <!-- Eye cut-out so it reads on any theme -->
+    <defs>
+        <mask id="eye-cut">
+            <rect x="0" y="0" width="16" height="16" fill="white"/>
+            <circle cx="12.6" cy="5.0" r="0.6" fill="black"/>
+        </mask>
+    </defs>
+
+    <!-- Dragon silhouette scaled to fill most of the 16×16 canvas -->
+    <g fill="#6B57FF" mask="url(#eye-cut)">
+        <!-- Body -->
+        <ellipse cx="8" cy="10" rx="6.2" ry="4.6"/>
+        <!-- Wing (bold triangular silhouette) -->
+        <path d="M6.0 3.0 L10.8 1.6 L9.6 8.5 Z"/>
+        <!-- Head -->
+        <circle cx="12.2" cy="5.0" r="2.1"/>
+        <!-- Snout / open jaw pointing right -->
+        <path d="M14.0 5.2 L15.7 4.6 L15.2 6.8 Z"/>
+    </g>
+
+    <!-- Tiny red flame near the snout -->
+    <path d="M15.8 5.1 L16 5.5 L15.6 6.0 L15.2 5.6 Z" fill="#FF4D4D"/>
+</svg>
