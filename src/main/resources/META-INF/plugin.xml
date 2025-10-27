@@ -26,6 +26,10 @@
         <lang.syntaxHighlighterFactory
                 language="DragonBookLanguage"
                 implementationClass="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookSyntaxHighlighterFactory"/>
+
+        <lang.commenter
+                language="DragonBookLanguage"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.language.commenter.DragonBookCommenter"/>
         
         <colorSettingsPage implementation="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookColorSettingsPage"/>
     </extensions>
