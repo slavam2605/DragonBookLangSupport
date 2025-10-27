@@ -1,0 +1,17 @@
+<idea-plugin>
+    <id>lang.dragonbook.DragonBookLangSupport</id>
+    <name>DragonBook Lang</name>
+    <vendor url="https://https://github.com/slavam2605">Viacheslav Moklev</vendor>
+    <description><![CDATA[
+        Basic language support for DragonBook language.
+    ]]></description>
+
+    <dependencies>
+        <!-- Unused for now, keep for future UI -->
+        <module name="intellij.platform.compose"/>
+    </dependencies>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+    </extensions>
+</idea-plugin>

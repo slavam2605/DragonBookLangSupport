@@ -1,0 +1,58 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!--  A beautiful icon of a chicken by ChatGPT 5 Thinking (it supposed to be a dragon)  -->
+    <title>DragonBook Language — minimal white dragon icon</title>
+
+    <!-- Background: rounded square with purple → light blue gradient -->
+    <rect x="2" y="2" width="36" height="36" rx="8" fill="url(#bg)"/>
+
+    <!-- Soft drop shadow under the dragon -->
+    <g filter="url(#softBlur)">
+        <ellipse cx="22" cy="30.5" rx="9" ry="2" fill="#000000" opacity="0.16"/>
+    </g>
+
+    <!-- Dragon (flat, geometric, facing right) -->
+    <g fill="url(#dragonGrad)">
+        <!-- Body -->
+        <circle cx="20.5" cy="22.2" r="6.8"/>
+        <!-- Wing (simple triangular silhouette) -->
+        <path d="M18.2 14.1 L22.8 12.3 L20.8 18.1 Z"/>
+        <!-- Tail -->
+        <path d="M13.4 23.6 L11.0 22.6 L11.8 26.0 Z"/>
+        <!-- Head -->
+        <circle cx="26.6" cy="16.7" r="3.1"/>
+        <!-- Horn -->
+        <path d="M27.3 13.6 L28.7 12.0 L28.0 14.3 Z"/>
+        <!-- Snout / open jaw -->
+        <path d="M29.1 16.6 L31.0 16.1 L30.1 17.8 Z"/>
+    </g>
+
+    <!-- Eye (tiny, neutral cool gray-blue for visibility at 16px) -->
+    <circle cx="26.95" cy="16.55" r="0.65" fill="#C9D4FF"/>
+
+    <!-- Tiny red flame -->
+    <path d="M31.35 16.75
+           C31.95 16.35 32.75 16.6 32.95 17.2
+           C33.08 17.84 32.64 18.52 31.88 18.62
+           C31.96 18.15 31.76 17.75 31.38 17.45
+           C31.12 17.24 31.12 16.93 31.35 16.75 Z"
+          fill="#FF4D4D"/>
+
+    <defs>
+        <!-- Background gradient -->
+        <linearGradient id="bg" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#9D4EDD"/>
+            <stop offset="1" stop-color="#5BC0FF"/>
+        </linearGradient>
+
+        <!-- Subtle soft lighting across the dragon (still reads as white) -->
+        <linearGradient id="dragonGrad" x1="14" y1="10" x2="30" y2="28" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#FFFFFF"/>
+            <stop offset="1" stop-color="#F2F7FF"/>
+        </linearGradient>
+
+        <!-- Soft blur for the shadow -->
+        <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="1.2"/>
+        </filter>
+    </defs>
+</svg>
