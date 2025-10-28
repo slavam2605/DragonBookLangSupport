@@ -25,4 +25,8 @@ object DragonBookHighlighterColors {
         DefaultLanguageHighlighterColors.COMMA)
     val SEMICOLON = createTextAttributesKey("DRAGON_BOOK_SEMICOLON",
         DefaultLanguageHighlighterColors.SEMICOLON)
+    val ANNOTATION = createTextAttributesKey("DRAGON_BOOK_ANNOTATION",
+        DefaultLanguageHighlighterColors.METADATA)
+    val TYPE = createTextAttributesKey("DRAGON_BOOK_TYPE",
+        DefaultLanguageHighlighterColors.CLASS_NAME)
 }

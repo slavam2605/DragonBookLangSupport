@@ -32,5 +32,9 @@
                 implementationClass="lang.dragonbook.dragonbooklangsupport.language.commenter.DragonBookCommenter"/>
         
         <colorSettingsPage implementation="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookColorSettingsPage"/>
+
+        <annotator
+                language="DragonBookLanguage"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookAnnotator"/>
     </extensions>
 </idea-plugin>
