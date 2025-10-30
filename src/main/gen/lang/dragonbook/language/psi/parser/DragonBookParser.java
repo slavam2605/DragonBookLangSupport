@@ -346,14 +346,16 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // annotations? FUN ID LPAR functionParameters? RPAR (ARROW type)? block
+  // annotations? FUN functionName LPAR functionParameters? RPAR (ARROW type)? block
   public static boolean function(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "function")) return false;
     if (!nextTokenIs(b, "<function>", FUN, HASH)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, FUNCTION, "<function>");
     r = function_0(b, l + 1);
-    r = r && consumeTokens(b, 0, FUN, ID, LPAR);
+    r = r && consumeToken(b, FUN);
+    r = r && functionName(b, l + 1);
+    r = r && consumeToken(b, LPAR);
     r = r && function_4(b, l + 1);
     r = r && consumeToken(b, RPAR);
     r = r && function_6(b, l + 1);
@@ -413,6 +415,18 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "functionCall_2")) return false;
     callArguments(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // ID
+  public static boolean functionName(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "functionName")) return false;
+    if (!nextTokenIs(b, ID)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ID);
+    exit_section_(b, m, FUNCTION_NAME, r);
+    return r;
   }
 
   /* ********************************************************** */

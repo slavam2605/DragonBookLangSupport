@@ -40,6 +40,12 @@ public class DragonBookFunctionImpl extends ASTWrapperPsiElement implements Drag
   }
 
   @Override
+  @NotNull
+  public DragonBookFunctionName getFunctionName() {
+    return findNotNullChildByClass(DragonBookFunctionName.class);
+  }
+
+  @Override
   @Nullable
   public DragonBookFunctionParameters getFunctionParameters() {
     return findChildByClass(DragonBookFunctionParameters.class);

@@ -31,6 +31,7 @@ public interface DragonBookTypes {
   IElementType FOR_STATEMENT = new DragonBookElementType("FOR_STATEMENT");
   IElementType FUNCTION = new DragonBookElementType("FUNCTION");
   IElementType FUNCTION_CALL = new DragonBookElementType("FUNCTION_CALL");
+  IElementType FUNCTION_NAME = new DragonBookElementType("FUNCTION_NAME");
   IElementType FUNCTION_PARAMETER = new DragonBookElementType("FUNCTION_PARAMETER");
   IElementType FUNCTION_PARAMETERS = new DragonBookElementType("FUNCTION_PARAMETERS");
   IElementType ID_EXPR = new DragonBookElementType("ID_EXPR");
@@ -165,6 +166,9 @@ public interface DragonBookTypes {
       }
       else if (type == FUNCTION_CALL) {
         return new DragonBookFunctionCallImpl(node);
+      }
+      else if (type == FUNCTION_NAME) {
+        return new DragonBookFunctionNameImpl(node);
       }
       else if (type == FUNCTION_PARAMETER) {
         return new DragonBookFunctionParameterImpl(node);

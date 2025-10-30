@@ -13,6 +13,9 @@ public interface DragonBookFunction extends PsiElement {
   @NotNull
   DragonBookBlock getBlock();
 
+  @NotNull
+  DragonBookFunctionName getFunctionName();
+
   @Nullable
   DragonBookFunctionParameters getFunctionParameters();
 

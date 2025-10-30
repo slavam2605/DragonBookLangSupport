@@ -29,4 +29,6 @@ object DragonBookHighlighterColors {
         DefaultLanguageHighlighterColors.METADATA)
     val TYPE = createTextAttributesKey("DRAGON_BOOK_TYPE",
         DefaultLanguageHighlighterColors.CLASS_NAME)
+    val FUNCTION = createTextAttributesKey("DRAGON_BOOK_FUNCTION",
+        DefaultLanguageHighlighterColors.FUNCTION_DECLARATION)
 }

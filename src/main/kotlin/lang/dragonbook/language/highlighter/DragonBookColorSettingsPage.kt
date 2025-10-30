@@ -18,6 +18,7 @@ class DragonBookColorSettingsPage : ColorSettingsPage {
     override fun getDemoText(): @NonNls String {
         return """
             // Example function
+            #[noinline, impure]
             fun foo(float x, int y) -> float {
                 float result = x * y as float + 1.0;
                 int* ptr = malloc(8) as int*;
@@ -39,7 +40,7 @@ class DragonBookColorSettingsPage : ColorSettingsPage {
     }
 
     override fun getAttributeDescriptors(): Array<out AttributesDescriptor?> {
-        return Descriptions
+        return descriptions
     }
 
     override fun getColorDescriptors(): Array<out ColorDescriptor?> {
@@ -48,17 +49,18 @@ class DragonBookColorSettingsPage : ColorSettingsPage {
 
     override fun getDisplayName() = "DragonBook"
 
-    companion object {
-        private val Descriptions = arrayOf(
-            AttributesDescriptor("Text//Keyword", DragonBookHighlighterColors.KEYWORD),
-            AttributesDescriptor("Text//Identifier", DragonBookHighlighterColors.IDENTIFIER),
-            AttributesDescriptor("Text//Number", DragonBookHighlighterColors.NUMBER),
-            AttributesDescriptor("Text//Comment", DragonBookHighlighterColors.COMMENT),
-            AttributesDescriptor("Symbols//Braces", DragonBookHighlighterColors.BRACES),
-            AttributesDescriptor("Symbols//Parenthesis", DragonBookHighlighterColors.PARENTHESES),
-            AttributesDescriptor("Symbols//Operators", DragonBookHighlighterColors.OPERATOR_SIGN),
-            AttributesDescriptor("Symbols//Comma", DragonBookHighlighterColors.COMMA),
-            AttributesDescriptor("Symbols//Semicolon", DragonBookHighlighterColors.SEMICOLON),
-        )
-    }
 }
+
+private val descriptions = arrayOf(
+    AttributesDescriptor("Text//Keyword", DragonBookHighlighterColors.KEYWORD),
+    AttributesDescriptor("Text//Identifier", DragonBookHighlighterColors.IDENTIFIER),
+    AttributesDescriptor("Text//Function", DragonBookHighlighterColors.FUNCTION),
+    AttributesDescriptor("Text//Type", DragonBookHighlighterColors.TYPE),
+    AttributesDescriptor("Text//Number", DragonBookHighlighterColors.NUMBER),
+    AttributesDescriptor("Text//Comment", DragonBookHighlighterColors.COMMENT),
+    AttributesDescriptor("Symbols//Braces", DragonBookHighlighterColors.BRACES),
+    AttributesDescriptor("Symbols//Parenthesis", DragonBookHighlighterColors.PARENTHESES),
+    AttributesDescriptor("Symbols//Operators", DragonBookHighlighterColors.OPERATOR_SIGN),
+    AttributesDescriptor("Symbols//Comma", DragonBookHighlighterColors.COMMA),
+    AttributesDescriptor("Symbols//Semicolon", DragonBookHighlighterColors.SEMICOLON),
+)

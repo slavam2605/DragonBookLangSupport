@@ -25,7 +25,9 @@
 
 program ::= function+
 
-function ::= annotations? FUN ID LPAR functionParameters? RPAR (ARROW type)? block
+function ::= annotations? FUN functionName LPAR functionParameters? RPAR (ARROW type)? block
+
+functionName ::= ID
 
 annotations ::= HASH LBRACKET annotationList? RBRACKET
 

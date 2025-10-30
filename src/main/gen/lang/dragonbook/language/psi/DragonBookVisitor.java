@@ -99,6 +99,10 @@ public class DragonBookVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunctionName(@NotNull DragonBookFunctionName o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunctionParameter(@NotNull DragonBookFunctionParameter o) {
     visitPsiElement(o);
   }
