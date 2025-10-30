@@ -159,7 +159,15 @@ public class DragonBookVisitor extends PsiElementVisitor {
     visitExpression(o);
   }
 
+  public void visitVarName(@NotNull DragonBookVarName o) {
+    visitNamedElement(o);
+  }
+
   public void visitWhileStatement(@NotNull DragonBookWhileStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull DragonBookNamedElement o) {
     visitPsiElement(o);
   }
 

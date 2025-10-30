@@ -36,5 +36,13 @@
         <annotator
                 language="DragonBookLanguage"
                 implementationClass="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookAnnotator"/>
+        
+        <lang.elementManipulator
+                forClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookIdExpr"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookIdExprManipulator"/>
+
+        <lang.refactoringSupport
+                language="DragonBookLanguage"
+                implementationClass="lang.dragonbook.dragonbooklangsupport.language.refactor.DragonBookRefactoringSupportProvider"/>
     </extensions>
 </idea-plugin>

@@ -39,4 +39,10 @@ public class DragonBookDeclarationImpl extends ASTWrapperPsiElement implements D
     return findNotNullChildByClass(DragonBookType.class);
   }
 
+  @Override
+  @NotNull
+  public DragonBookVarName getVarName() {
+    return findNotNullChildByClass(DragonBookVarName.class);
+  }
+
 }

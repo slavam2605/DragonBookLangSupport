@@ -8,18 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookTypes.*;
+import lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookNamedElementImpl;
 import lang.dragonbook.dragonbooklangsupport.language.psi.*;
-import lang.dragonbook.dragonbooklangsupport.language.resolve.DragonBookReference;
 
-public class DragonBookIdExprImpl extends DragonBookExpressionImpl implements DragonBookIdExpr {
+public class DragonBookVarNameImpl extends DragonBookNamedElementImpl implements DragonBookVarName {
 
-  public DragonBookIdExprImpl(@NotNull ASTNode node) {
+  public DragonBookVarNameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  @Override
   public void accept(@NotNull DragonBookVisitor visitor) {
-    visitor.visitIdExpr(this);
+    visitor.visitVarName(this);
   }
 
   @Override
@@ -29,8 +28,18 @@ public class DragonBookIdExprImpl extends DragonBookExpressionImpl implements Dr
   }
 
   @Override
-  public @NotNull DragonBookReference getReference() {
-    return DragonBookPsiImplUtil.getReference(this);
+  public @NotNull String getName() {
+    return DragonBookPsiImplUtil.getName(this);
+  }
+
+  @Override
+  public @NotNull PsiElement setName(@NotNull String newName) {
+    return DragonBookPsiImplUtil.setName(this, newName);
+  }
+
+  @Override
+  public @NotNull PsiElement getNameIdentifier() {
+    return DragonBookPsiImplUtil.getNameIdentifier(this);
   }
 
 }

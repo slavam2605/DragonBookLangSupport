@@ -229,14 +229,14 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // type ID (ASSIGN expression)?
+  // type varName (ASSIGN expression)?
   public static boolean declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "declaration")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = type(b, l + 1);
-    r = r && consumeToken(b, ID);
+    r = r && varName(b, l + 1);
     r = r && declaration_2(b, l + 1);
     exit_section_(b, m, DECLARATION, r);
     return r;
@@ -646,6 +646,18 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "type_1", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // ID
+  public static boolean varName(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "varName")) return false;
+    if (!nextTokenIs(b, ID)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ID);
+    exit_section_(b, m, VAR_NAME, r);
+    return r;
   }
 
   /* ********************************************************** */

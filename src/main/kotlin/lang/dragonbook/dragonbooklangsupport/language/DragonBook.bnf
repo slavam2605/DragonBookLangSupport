@@ -12,6 +12,8 @@
   elementTypeClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookElementType"
   tokenTypeClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookTokenType"
 
+  psiImplUtilClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookPsiImplUtil"
+
   extends(".*Expr")=expression
 
   tokens=[
@@ -51,7 +53,13 @@ callArguments ::= expression (COMMA expression)*
 
 block ::= LBRACE statement* RBRACE
 
-declaration ::= type ID (ASSIGN expression)?
+declaration ::= type varName (ASSIGN expression)?
+
+varName ::= ID {
+    mixin="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookNamedElementImpl"
+    implements="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookNamedElement"
+    methods=[getName setName getNameIdentifier]
+}
 
 type ::= ID (STAR)*
 
@@ -110,7 +118,9 @@ unaryExpr ::= (MINUS | NOT | STAR) expression
 
 parenExpr ::= LPAR expression RPAR
 
-idExpr ::= ID
+idExpr ::= ID {
+    methods=[getReference]
+}
 
 trueExpr ::= TRUE
 

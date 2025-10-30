@@ -5,15 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface DragonBookDeclaration extends PsiElement {
+public interface DragonBookVarName extends DragonBookNamedElement {
 
-  @Nullable
-  DragonBookExpression getExpression();
+  @NotNull String getName();
 
-  @NotNull
-  DragonBookType getType();
+  @NotNull PsiElement setName(@NotNull String newName);
 
-  @NotNull
-  DragonBookVarName getVarName();
+  @NotNull PsiElement getNameIdentifier();
 
 }

@@ -46,6 +46,7 @@ public interface DragonBookTypes {
   IElementType TRUE_EXPR = new DragonBookElementType("TRUE_EXPR");
   IElementType TYPE = new DragonBookElementType("TYPE");
   IElementType UNARY_EXPR = new DragonBookElementType("UNARY_EXPR");
+  IElementType VAR_NAME = new DragonBookElementType("VAR_NAME");
   IElementType WHILE_STATEMENT = new DragonBookElementType("WHILE_STATEMENT");
 
   IElementType AND = new DragonBookTokenType("AND");
@@ -209,6 +210,9 @@ public interface DragonBookTypes {
       }
       else if (type == UNARY_EXPR) {
         return new DragonBookUnaryExprImpl(node);
+      }
+      else if (type == VAR_NAME) {
+        return new DragonBookVarNameImpl(node);
       }
       else if (type == WHILE_STATEMENT) {
         return new DragonBookWhileStatementImpl(node);
