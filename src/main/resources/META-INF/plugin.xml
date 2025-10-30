@@ -44,5 +44,9 @@
         <lang.refactoringSupport
                 language="DragonBookLanguage"
                 implementationClass="lang.dragonbook.language.refactor.DragonBookRefactoringSupportProvider"/>
+
+        <lang.braceMatcher
+                language="DragonBookLanguage"
+                implementationClass="lang.dragonbook.language.DragonBookBraceMatcher"/>
     </extensions>
 </idea-plugin>
