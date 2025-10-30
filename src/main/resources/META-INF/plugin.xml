@@ -14,35 +14,35 @@
     <extensions defaultExtensionNs="com.intellij">
         <fileType
                 name="DragonBook File"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.language.DragonBookFileType"
+                implementationClass="lang.dragonbook.language.DragonBookFileType"
                 fieldName="INSTANCE"
                 language="DragonBookLanguage"
                 extensions="dg"/>
 
         <lang.parserDefinition
                 language="DragonBookLanguage"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.language.DragonBookParserDefinition"/>
+                implementationClass="lang.dragonbook.language.DragonBookParserDefinition"/>
 
         <lang.syntaxHighlighterFactory
                 language="DragonBookLanguage"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookSyntaxHighlighterFactory"/>
+                implementationClass="lang.dragonbook.language.highlighter.DragonBookSyntaxHighlighterFactory"/>
 
         <lang.commenter
                 language="DragonBookLanguage"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.language.commenter.DragonBookCommenter"/>
+                implementationClass="lang.dragonbook.language.commenter.DragonBookCommenter"/>
         
-        <colorSettingsPage implementation="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookColorSettingsPage"/>
+        <colorSettingsPage implementation="lang.dragonbook.language.highlighter.DragonBookColorSettingsPage"/>
 
         <annotator
                 language="DragonBookLanguage"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.language.highlighter.DragonBookAnnotator"/>
+                implementationClass="lang.dragonbook.language.highlighter.DragonBookAnnotator"/>
         
         <lang.elementManipulator
-                forClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookIdExpr"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.language.psi.DragonBookIdExprManipulator"/>
+                forClass="lang.dragonbook.language.psi.DragonBookIdExpr"
+                implementationClass="lang.dragonbook.language.psi.DragonBookIdExprManipulator"/>
 
         <lang.refactoringSupport
                 language="DragonBookLanguage"
-                implementationClass="lang.dragonbook.dragonbooklangsupport.language.refactor.DragonBookRefactoringSupportProvider"/>
+                implementationClass="lang.dragonbook.language.refactor.DragonBookRefactoringSupportProvider"/>
     </extensions>
 </idea-plugin>
