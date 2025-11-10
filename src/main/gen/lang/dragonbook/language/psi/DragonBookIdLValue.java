@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface DragonBookIdLValue extends PsiElement {
 
+  @NotNull
+  DragonBookIdExpr getIdExpr();
+
 }

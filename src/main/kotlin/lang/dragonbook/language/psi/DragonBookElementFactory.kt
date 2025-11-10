@@ -17,13 +17,13 @@ object DragonBookElementFactory {
 
     fun createExpression(project: Project, text: String): DragonBookExpression {
         val statement = createStatement(project, "_ = $text;")
-        return statement.assignment!!.expression
+        return statement.assignment!!.expression!!
     }
 
     fun createStatement(project: Project, text: String): DragonBookStatement {
         val psiFile = createFile(project, "fun _() { $text }")
         return (psiFile.firstChild as DragonBookFunction)
-            .block.statementList[0]
+            .block!!.statementList[0]
     }
 
     fun createFile(project: Project, text: String): DragonBookFile {

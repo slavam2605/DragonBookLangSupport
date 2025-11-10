@@ -10,7 +10,7 @@ public interface DragonBookAssignment extends PsiElement {
   @NotNull
   DragonBookAssignOp getAssignOp();
 
-  @NotNull
+  @Nullable
   DragonBookExpression getExpression();
 
   @NotNull

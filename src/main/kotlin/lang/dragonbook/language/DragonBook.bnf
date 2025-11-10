@@ -25,11 +25,12 @@
 
 program ::= function+
 
-function ::= annotations? FUN functionName LPAR functionParameters? RPAR (ARROW type)? block
+function ::= annotations? FUN functionName LPAR functionParameters? RPAR (ARROW type)? block { pin=2 recoverWhile=function_recover }
+private function_recover ::= !(FUN | HASH)
 
 functionName ::= ID
 
-annotations ::= HASH LBRACKET annotationList? RBRACKET
+annotations ::= HASH LBRACKET annotationList? RBRACKET { pin=1 }
 
 annotationList ::= ID (COMMA ID)*
 
@@ -49,13 +50,13 @@ statement ::= declaration end
             | forStatement
             | block
 
-functionCall ::= ID LPAR callArguments? RPAR
+functionCall ::= ID LPAR callArguments? RPAR { pin=2 }
 
 callArguments ::= expression (COMMA expression)*
 
-block ::= LBRACE statement* RBRACE
+block ::= LBRACE statement* RBRACE { pin=1 }
 
-declaration ::= type varName (ASSIGN expression)?
+declaration ::= type varName (ASSIGN expression)? { pin=2 }
 
 varName ::= ID {
     mixin="lang.dragonbook.language.psi.DragonBookNamedElementImpl"
@@ -65,7 +66,7 @@ varName ::= ID {
 
 type ::= ID (STAR)*
 
-assignment ::= lvalue assignOp expression
+assignment ::= lvalue assignOp expression { pin=2 }
 
 assignOp ::= ASSIGN | PLUS_ASSIGN | MINUS_ASSIGN | STAR_ASSIGN | DIV_ASSIGN | MOD_ASSIGN
 
@@ -75,19 +76,19 @@ idLValue ::= ID
 
 derefLValue ::= STAR expression
 
-ifStatement ::= IF LPAR expression RPAR statement (ELSE statement)?
+ifStatement ::= IF LPAR expression RPAR statement (ELSE statement)? { pin=1 }
 
-whileStatement ::= WHILE LPAR expression RPAR statement
+whileStatement ::= WHILE LPAR expression RPAR statement { pin=1 }
 
-doWhileStatement ::= DO statement WHILE LPAR expression RPAR end
+doWhileStatement ::= DO statement WHILE LPAR expression RPAR end { pin=1 }
 
-forStatement ::= FOR LPAR (declaration | assignment)? SEMICOLON expression? SEMICOLON assignment? RPAR statement
+forStatement ::= FOR LPAR (declaration | assignment)? SEMICOLON expression? SEMICOLON assignment? RPAR statement { pin=1 }
 
-breakStatement ::= BREAK end
+breakStatement ::= BREAK end { pin=1 }
 
-continueStatement ::= CONTINUE end
+continueStatement ::= CONTINUE end { pin=1 }
 
-returnStatement ::= RETURN expression? end
+returnStatement ::= RETURN expression? end { pin=1 }
 
 expression ::= orExpr
              | andExpr
@@ -118,7 +119,7 @@ castExpr ::= expression AS type
 
 unaryExpr ::= (MINUS | NOT | STAR) expression
 
-parenExpr ::= LPAR expression RPAR
+parenExpr ::= LPAR expression RPAR { pin=1 }
 
 idExpr ::= ID {
     methods=[getReference]

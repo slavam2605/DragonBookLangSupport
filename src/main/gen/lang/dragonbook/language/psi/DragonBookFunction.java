@@ -10,10 +10,10 @@ public interface DragonBookFunction extends PsiElement {
   @Nullable
   DragonBookAnnotations getAnnotations();
 
-  @NotNull
+  @Nullable
   DragonBookBlock getBlock();
 
-  @NotNull
+  @Nullable
   DragonBookFunctionName getFunctionName();
 
   @Nullable

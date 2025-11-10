@@ -16,7 +16,7 @@ public interface DragonBookForStatement extends PsiElement {
   @Nullable
   DragonBookExpression getExpression();
 
-  @NotNull
+  @Nullable
   DragonBookStatement getStatement();
 
 }

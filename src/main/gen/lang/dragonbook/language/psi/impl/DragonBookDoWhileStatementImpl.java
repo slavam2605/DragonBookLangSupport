@@ -28,15 +28,15 @@ public class DragonBookDoWhileStatementImpl extends ASTWrapperPsiElement impleme
   }
 
   @Override
-  @NotNull
+  @Nullable
   public DragonBookExpression getExpression() {
-    return findNotNullChildByClass(DragonBookExpression.class);
+    return findChildByClass(DragonBookExpression.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public DragonBookStatement getStatement() {
-    return findNotNullChildByClass(DragonBookStatement.class);
+    return findChildByClass(DragonBookStatement.class);
   }
 
 }

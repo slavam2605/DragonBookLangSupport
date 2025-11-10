@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface DragonBookIfStatement extends PsiElement {
 
-  @NotNull
+  @Nullable
   DragonBookExpression getExpression();
 
   @NotNull

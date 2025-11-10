@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface DragonBookWhileStatement extends PsiElement {
 
-  @NotNull
+  @Nullable
   DragonBookExpression getExpression();
 
-  @NotNull
+  @Nullable
   DragonBookStatement getStatement();
 
 }

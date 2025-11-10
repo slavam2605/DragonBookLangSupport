@@ -28,15 +28,15 @@ public class DragonBookWhileStatementImpl extends ASTWrapperPsiElement implement
   }
 
   @Override
-  @NotNull
+  @Nullable
   public DragonBookExpression getExpression() {
-    return findNotNullChildByClass(DragonBookExpression.class);
+    return findChildByClass(DragonBookExpression.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public DragonBookStatement getStatement() {
-    return findNotNullChildByClass(DragonBookStatement.class);
+    return findChildByClass(DragonBookStatement.class);
   }
 
 }

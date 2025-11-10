@@ -27,4 +27,10 @@ public class DragonBookIdLValueImpl extends ASTWrapperPsiElement implements Drag
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public DragonBookIdExpr getIdExpr() {
+    return findNotNullChildByClass(DragonBookIdExpr.class);
+  }
+
 }

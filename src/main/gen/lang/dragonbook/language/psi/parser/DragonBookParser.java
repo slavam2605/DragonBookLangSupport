@@ -81,13 +81,14 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean annotations(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "annotations")) return false;
     if (!nextTokenIs(b, HASH)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, HASH, LBRACKET);
-    r = r && annotations_2(b, l + 1);
-    r = r && consumeToken(b, RBRACKET);
-    exit_section_(b, m, ANNOTATIONS, r);
-    return r;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, ANNOTATIONS, null);
+    r = consumeTokens(b, 1, HASH, LBRACKET);
+    p = r; // pin = 1
+    r = r && report_error_(b, annotations_2(b, l + 1));
+    r = p && consumeToken(b, RBRACKET) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // annotationList?
@@ -118,13 +119,14 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "assignment")) return false;
     if (!nextTokenIs(b, "<assignment>", ID, STAR)) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, ASSIGNMENT, "<assignment>");
     r = lvalue(b, l + 1);
     r = r && assignOp(b, l + 1);
+    p = r; // pin = 2
     r = r && expression(b, l + 1, -1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -132,13 +134,14 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, BLOCK, null);
     r = consumeToken(b, LBRACE);
-    r = r && block_1(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
-    exit_section_(b, m, BLOCK, r);
-    return r;
+    p = r; // pin = 1
+    r = r && report_error_(b, block_1(b, l + 1));
+    r = p && consumeToken(b, RBRACE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // statement*
@@ -157,12 +160,13 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean breakStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "breakStatement")) return false;
     if (!nextTokenIs(b, BREAK)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, BREAK_STATEMENT, null);
     r = consumeToken(b, BREAK);
+    p = r; // pin = 1
     r = r && end(b, l + 1);
-    exit_section_(b, m, BREAK_STATEMENT, r);
-    return r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -220,12 +224,13 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean continueStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "continueStatement")) return false;
     if (!nextTokenIs(b, CONTINUE)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, CONTINUE_STATEMENT, null);
     r = consumeToken(b, CONTINUE);
+    p = r; // pin = 1
     r = r && end(b, l + 1);
-    exit_section_(b, m, CONTINUE_STATEMENT, r);
-    return r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -233,13 +238,14 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "declaration")) return false;
     if (!nextTokenIs(b, ID)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, DECLARATION, null);
     r = type(b, l + 1);
     r = r && varName(b, l + 1);
+    p = r; // pin = 2
     r = r && declaration_2(b, l + 1);
-    exit_section_(b, m, DECLARATION, r);
-    return r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // (ASSIGN expression)?
@@ -278,16 +284,17 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean doWhileStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "doWhileStatement")) return false;
     if (!nextTokenIs(b, DO)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, DO_WHILE_STATEMENT, null);
     r = consumeToken(b, DO);
-    r = r && statement(b, l + 1);
-    r = r && consumeTokens(b, 0, WHILE, LPAR);
-    r = r && expression(b, l + 1, -1);
-    r = r && consumeToken(b, RPAR);
-    r = r && end(b, l + 1);
-    exit_section_(b, m, DO_WHILE_STATEMENT, r);
-    return r;
+    p = r; // pin = 1
+    r = r && report_error_(b, statement(b, l + 1));
+    r = p && report_error_(b, consumeTokens(b, -1, WHILE, LPAR)) && r;
+    r = p && report_error_(b, expression(b, l + 1, -1)) && r;
+    r = p && report_error_(b, consumeToken(b, RPAR)) && r;
+    r = p && end(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -301,18 +308,19 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean forStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "forStatement")) return false;
     if (!nextTokenIs(b, FOR)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, FOR, LPAR);
-    r = r && forStatement_2(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    r = r && forStatement_4(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    r = r && forStatement_6(b, l + 1);
-    r = r && consumeToken(b, RPAR);
-    r = r && statement(b, l + 1);
-    exit_section_(b, m, FOR_STATEMENT, r);
-    return r;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FOR_STATEMENT, null);
+    r = consumeTokens(b, 1, FOR, LPAR);
+    p = r; // pin = 1
+    r = r && report_error_(b, forStatement_2(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, SEMICOLON)) && r;
+    r = p && report_error_(b, forStatement_4(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, SEMICOLON)) && r;
+    r = p && report_error_(b, forStatement_6(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, RPAR)) && r;
+    r = p && statement(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // (declaration | assignment)?
@@ -349,19 +357,19 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   // annotations? FUN functionName LPAR functionParameters? RPAR (ARROW type)? block
   public static boolean function(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "function")) return false;
-    if (!nextTokenIs(b, "<function>", FUN, HASH)) return false;
-    boolean r;
+    boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, FUNCTION, "<function>");
     r = function_0(b, l + 1);
     r = r && consumeToken(b, FUN);
-    r = r && functionName(b, l + 1);
-    r = r && consumeToken(b, LPAR);
-    r = r && function_4(b, l + 1);
-    r = r && consumeToken(b, RPAR);
-    r = r && function_6(b, l + 1);
-    r = r && block(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
+    p = r; // pin = 2
+    r = r && report_error_(b, functionName(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, LPAR)) && r;
+    r = p && report_error_(b, function_4(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, RPAR)) && r;
+    r = p && report_error_(b, function_6(b, l + 1)) && r;
+    r = p && block(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, DragonBookParser::function_recover);
+    return r || p;
   }
 
   // annotations?
@@ -401,13 +409,14 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean functionCall(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "functionCall")) return false;
     if (!nextTokenIs(b, ID)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, ID, LPAR);
-    r = r && functionCall_2(b, l + 1);
-    r = r && consumeToken(b, RPAR);
-    exit_section_(b, m, FUNCTION_CALL, r);
-    return r;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUNCTION_CALL, null);
+    r = consumeTokens(b, 2, ID, LPAR);
+    p = r; // pin = 2
+    r = r && report_error_(b, functionCall_2(b, l + 1));
+    r = p && consumeToken(b, RPAR) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // callArguments?
@@ -478,6 +487,26 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // !(FUN | HASH)
+  static boolean function_recover(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "function_recover")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !function_recover_0(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // FUN | HASH
+  private static boolean function_recover_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "function_recover_0")) return false;
+    boolean r;
+    r = consumeToken(b, FUN);
+    if (!r) r = consumeToken(b, HASH);
+    return r;
+  }
+
+  /* ********************************************************** */
   // ID
   public static boolean idLValue(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "idLValue")) return false;
@@ -494,15 +523,16 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean ifStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ifStatement")) return false;
     if (!nextTokenIs(b, IF)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IF, LPAR);
-    r = r && expression(b, l + 1, -1);
-    r = r && consumeToken(b, RPAR);
-    r = r && statement(b, l + 1);
-    r = r && ifStatement_5(b, l + 1);
-    exit_section_(b, m, IF_STATEMENT, r);
-    return r;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, IF_STATEMENT, null);
+    r = consumeTokens(b, 1, IF, LPAR);
+    p = r; // pin = 1
+    r = r && report_error_(b, expression(b, l + 1, -1));
+    r = p && report_error_(b, consumeToken(b, RPAR)) && r;
+    r = p && report_error_(b, statement(b, l + 1)) && r;
+    r = p && ifStatement_5(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // (ELSE statement)?
@@ -558,13 +588,14 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean returnStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "returnStatement")) return false;
     if (!nextTokenIs(b, RETURN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, RETURN_STATEMENT, null);
     r = consumeToken(b, RETURN);
-    r = r && returnStatement_1(b, l + 1);
-    r = r && end(b, l + 1);
-    exit_section_(b, m, RETURN_STATEMENT, r);
-    return r;
+    p = r; // pin = 1
+    r = r && report_error_(b, returnStatement_1(b, l + 1));
+    r = p && end(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   // expression?
@@ -679,14 +710,15 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   public static boolean whileStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "whileStatement")) return false;
     if (!nextTokenIs(b, WHILE)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, WHILE, LPAR);
-    r = r && expression(b, l + 1, -1);
-    r = r && consumeToken(b, RPAR);
-    r = r && statement(b, l + 1);
-    exit_section_(b, m, WHILE_STATEMENT, r);
-    return r;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, WHILE_STATEMENT, null);
+    r = consumeTokens(b, 1, WHILE, LPAR);
+    p = r; // pin = 1
+    r = r && report_error_(b, expression(b, l + 1, -1));
+    r = p && report_error_(b, consumeToken(b, RPAR)) && r;
+    r = p && statement(b, l + 1) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -705,7 +737,7 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   // 10: ATOM(falseExpr)
   // 11: ATOM(intExpr)
   // 12: ATOM(floatExpr)
-  // 13: PREFIX(parenExpr)
+  // 13: ATOM(parenExpr)
   public static boolean expression(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "expression")) return false;
     addVariant(b, "<expression>");
@@ -879,16 +911,17 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+  // LPAR expression RPAR
   public static boolean parenExpr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "parenExpr")) return false;
     if (!nextTokenIsSmart(b, LPAR)) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, null);
+    Marker m = enter_section_(b, l, _NONE_, PAREN_EXPR, null);
     r = consumeTokenSmart(b, LPAR);
-    p = r;
-    r = p && expression(b, l, -1);
-    r = p && report_error_(b, consumeToken(b, RPAR)) && r;
-    exit_section_(b, l, m, PAREN_EXPR, r, p, null);
+    p = r; // pin = 1
+    r = r && report_error_(b, expression(b, l + 1, -1));
+    r = p && consumeToken(b, RPAR) && r;
+    exit_section_(b, l, m, r, p, null);
     return r || p;
   }
 
