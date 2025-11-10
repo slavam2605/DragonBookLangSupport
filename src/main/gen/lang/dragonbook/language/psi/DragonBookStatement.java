@@ -26,6 +26,9 @@ public interface DragonBookStatement extends PsiElement {
   DragonBookDoWhileStatement getDoWhileStatement();
 
   @Nullable
+  DragonBookErrorStatement getErrorStatement();
+
+  @Nullable
   DragonBookForStatement getForStatement();
 
   @Nullable

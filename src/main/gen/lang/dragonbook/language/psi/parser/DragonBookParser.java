@@ -4,7 +4,7 @@ package lang.dragonbook.language.psi.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
 import static lang.dragonbook.language.psi.DragonBookTypes.*;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import static lang.dragonbook.language.DragonBookParserUtil.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.TokenSet;
@@ -301,6 +301,57 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   // SEMICOLON
   static boolean end(PsiBuilder b, int l) {
     return consumeToken(b, SEMICOLON);
+  }
+
+  /* ********************************************************** */
+  // <<consumeAnyExcept error_statement_stop>> <<consumeAnyExcept (error_statement_stop | statement_start)>>* SEMICOLON?
+  public static boolean error_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "error_statement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ERROR_STATEMENT, "<error statement>");
+    r = consumeAnyExcept(b, l + 1, DragonBookParser::error_statement_stop);
+    r = r && error_statement_1(b, l + 1);
+    r = r && error_statement_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // <<consumeAnyExcept (error_statement_stop | statement_start)>>*
+  private static boolean error_statement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "error_statement_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!consumeAnyExcept(b, l + 1, DragonBookParser::error_statement_1_0_0)) break;
+      if (!empty_element_parsed_guard_(b, "error_statement_1", c)) break;
+    }
+    return true;
+  }
+
+  // error_statement_stop | statement_start
+  private static boolean error_statement_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "error_statement_1_0_0")) return false;
+    boolean r;
+    r = error_statement_stop(b, l + 1);
+    if (!r) r = statement_start(b, l + 1);
+    return r;
+  }
+
+  // SEMICOLON?
+  private static boolean error_statement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "error_statement_2")) return false;
+    consumeToken(b, SEMICOLON);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // RBRACE | SEMICOLON
+  static boolean error_statement_stop(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "error_statement_stop")) return false;
+    if (!nextTokenIs(b, "", RBRACE, SEMICOLON)) return false;
+    boolean r;
+    r = consumeToken(b, RBRACE);
+    if (!r) r = consumeToken(b, SEMICOLON);
+    return r;
   }
 
   /* ********************************************************** */
@@ -617,6 +668,7 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
   //             | doWhileStatement
   //             | forStatement
   //             | block
+  //             | error_statement
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
@@ -632,6 +684,7 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
     if (!r) r = doWhileStatement(b, l + 1);
     if (!r) r = forStatement(b, l + 1);
     if (!r) r = block(b, l + 1);
+    if (!r) r = error_statement(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -666,6 +719,23 @@ public class DragonBookParser implements PsiParser, LightPsiParser {
     r = functionCall(b, l + 1);
     r = r && end(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ID | IF | WHILE | DO | FOR | BREAK | CONTINUE | RETURN | LBRACE
+  static boolean statement_start(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "statement_start")) return false;
+    boolean r;
+    r = consumeToken(b, ID);
+    if (!r) r = consumeToken(b, IF);
+    if (!r) r = consumeToken(b, WHILE);
+    if (!r) r = consumeToken(b, DO);
+    if (!r) r = consumeToken(b, FOR);
+    if (!r) r = consumeToken(b, BREAK);
+    if (!r) r = consumeToken(b, CONTINUE);
+    if (!r) r = consumeToken(b, RETURN);
+    if (!r) r = consumeToken(b, LBRACE);
     return r;
   }
 

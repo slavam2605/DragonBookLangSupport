@@ -13,6 +13,7 @@
   tokenTypeClass="lang.dragonbook.language.psi.DragonBookTokenType"
 
   psiImplUtilClass="lang.dragonbook.language.psi.DragonBookPsiImplUtil"
+  parserUtilClass="lang.dragonbook.language.DragonBookParserUtil"
 
   extends(".*Expr")=expression
 
@@ -49,6 +50,11 @@ statement ::= declaration end
             | doWhileStatement
             | forStatement
             | block
+            | error_statement
+
+error_statement ::= <<consumeAnyExcept error_statement_stop>> <<consumeAnyExcept (error_statement_stop | statement_start)>>* SEMICOLON?
+private error_statement_stop ::= RBRACE | SEMICOLON
+private statement_start ::= ID | IF | WHILE | DO | FOR | BREAK | CONTINUE | RETURN | LBRACE
 
 functionCall ::= ID LPAR callArguments? RPAR { pin=2 }
 

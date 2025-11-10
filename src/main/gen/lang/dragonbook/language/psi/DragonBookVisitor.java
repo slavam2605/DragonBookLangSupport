@@ -75,6 +75,10 @@ public class DragonBookVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitErrorStatement(@NotNull DragonBookErrorStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitExpression(@NotNull DragonBookExpression o) {
     visitPsiElement(o);
   }

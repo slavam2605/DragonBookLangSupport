@@ -25,6 +25,7 @@ public interface DragonBookTypes {
   IElementType DECLARATION = new DragonBookElementType("DECLARATION");
   IElementType DEREF_L_VALUE = new DragonBookElementType("DEREF_L_VALUE");
   IElementType DO_WHILE_STATEMENT = new DragonBookElementType("DO_WHILE_STATEMENT");
+  IElementType ERROR_STATEMENT = new DragonBookElementType("ERROR_STATEMENT");
   IElementType EXPRESSION = new DragonBookElementType("EXPRESSION");
   IElementType FALSE_EXPR = new DragonBookElementType("FALSE_EXPR");
   IElementType FLOAT_EXPR = new DragonBookElementType("FLOAT_EXPR");
@@ -151,6 +152,9 @@ public interface DragonBookTypes {
       }
       else if (type == DO_WHILE_STATEMENT) {
         return new DragonBookDoWhileStatementImpl(node);
+      }
+      else if (type == ERROR_STATEMENT) {
+        return new DragonBookErrorStatementImpl(node);
       }
       else if (type == FALSE_EXPR) {
         return new DragonBookFalseExprImpl(node);

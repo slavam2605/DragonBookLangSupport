@@ -65,6 +65,12 @@ public class DragonBookStatementImpl extends ASTWrapperPsiElement implements Dra
 
   @Override
   @Nullable
+  public DragonBookErrorStatement getErrorStatement() {
+    return findChildByClass(DragonBookErrorStatement.class);
+  }
+
+  @Override
+  @Nullable
   public DragonBookForStatement getForStatement() {
     return findChildByClass(DragonBookForStatement.class);
   }
